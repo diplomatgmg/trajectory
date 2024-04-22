@@ -2,6 +2,8 @@ import React, { type FC, type ReactElement, useState } from 'react'
 import { type TCar } from '../../types/types'
 import Button from '../Button'
 import EditField from '../EditField'
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
+import Map from '../Map'
 
 interface CardItemProps {
   car: TCar
@@ -61,6 +63,7 @@ const CardItem: FC<CardItemProps> = ({ car, onDelete }): ReactElement => {
         <p className="car__latitude">Широта: {editedCar.latitude}</p>
         <p className="car__longitude">Долгота: {editedCar.longitude}</p>
       </div>
+      <Map car={car} />
       <Button onClick={() => onDelete(car.id)} type={'remove'} text={'Удалить'} />
     </li>
   )

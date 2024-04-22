@@ -1,5 +1,6 @@
 import { type ReactElement, useState } from 'react'
 import './style.scss'
+
 import CarList from './components/Card/CarList'
 import SortList from './components/Sort/SortList'
 import { type Ordering } from './types/types'

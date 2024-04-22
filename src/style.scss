@@ -68,9 +68,8 @@ ul {
 
 
 .car {
-  position: relative;
-  min-width: 250px;
   width: 30%;
+  min-width: 250px;
   padding: 20px;
 
   transition: background-color 100ms;
@@ -91,9 +90,10 @@ ul {
   }
 
   &__model {
-    flex-wrap: wrap;
     font-size: 1.5rem;
     font-weight: bold;
+
+    flex-wrap: wrap;
 
     margin: 0;
   }
@@ -121,10 +121,6 @@ ul {
 
   &__coordinates {
     margin-top: 10px;
-  }
-
-  &__longitude {
-    margin-bottom: 0;
   }
 }
 
@@ -169,13 +165,9 @@ ul {
   }
 
   &__remove {
-    position: absolute;
-    right: 12px;
-    bottom: 12px;
-
     float: right;
 
-    margin: 0;
+    margin-top: 12px;
 
     color: #f00;
     border-color: #f00;
