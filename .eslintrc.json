@@ -1,0 +1,27 @@
+{
+  "extends": [
+    "standard-with-typescript"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "rules": {
+    "@typescript-eslint/no-confusing-void-expression": "off",
+    "padded-blocks": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/semi": "warn",
+    "no-trailing-spaces": "warn",
+    "@typescript-eslint/no-empty-interface": "warn",
+    "no-empty-pattern": "warn",
+    "no-multiple-empty-lines": "warn",
+    "@typescript-eslint/object-curly-spacing": "warn",
+    "no-empty": "warn",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
+    ]
+  }
+}
