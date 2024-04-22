@@ -1,13 +1,14 @@
-import React, { type ChangeEvent, type FC, type ReactElement, useState } from 'react'
+import React, { type FC, type ReactElement, useState } from 'react'
 import { type TCar } from '../../types/types'
 import Button from '../Button'
 import EditField from '../EditField'
 
 interface CardItemProps {
   car: TCar
+  onDelete: (id: TCar['id']) => void
 }
 
-const CardItem: FC<CardItemProps> = ({ car }): ReactElement => {
+const CardItem: FC<CardItemProps> = ({ car, onDelete }): ReactElement => {
   const [editedCar, setEditedCar] = useState<TCar>({ ...car })
   const [isEditing, setIsEditing] = useState<boolean>(false)
   const [keyToEdit, setKeyToEdit] = useState<keyof TCar | null>(null)
@@ -60,7 +61,7 @@ const CardItem: FC<CardItemProps> = ({ car }): ReactElement => {
         <p className="car__latitude">Широта: {editedCar.latitude}</p>
         <p className="car__longitude">Долгота: {editedCar.longitude}</p>
       </div>
-      <button className="btn btn__remove">Удалить</button>
+      <Button onClick={() => onDelete(car.id)} type={'remove'} text={'Удалить'} />
     </li>
   )
 }
