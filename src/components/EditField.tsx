@@ -1,4 +1,4 @@
-import React, { type ChangeEvent, type FC, type HTMLInputTypeAttribute, useState } from 'react'
+import React, { type ChangeEvent, type FC, type HTMLInputTypeAttribute, useEffect, useRef, useState } from 'react'
 import Button from './Button'
 
 interface EditFieldProps {
@@ -10,7 +10,15 @@ interface EditFieldProps {
 
 const EditField: FC<EditFieldProps> = ({ onApply, onDiscard, inputType, defaultValue }) => {
   const [input, setInput] = useState<string | number>(defaultValue ?? '')
+  const inputRef = useRef<HTMLInputElement | null>(null)
+
+  useEffect(() => {
+    inputRef.current?.select()
+  }, [])
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    console.log(inputRef)
+
     const { value } = e.target
 
     if (typeof defaultValue === 'number') {
@@ -23,8 +31,8 @@ const EditField: FC<EditFieldProps> = ({ onApply, onDiscard, inputType, defaultV
 
   return (
     <>
-      <label>
-        <input type={inputType} value={input} onChange={handleChange}/>
+      <label >
+        <input type={inputType} value={input} onChange={handleChange} ref={inputRef}/>
       </label>
       <Button onClick={() => onApply(input)} type={'apply'} text={'✓'}/>
       <Button onClick={onDiscard} type={'discard'} text={'×'}/>
