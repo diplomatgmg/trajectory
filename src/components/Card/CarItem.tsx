@@ -58,7 +58,7 @@ const CardItem: FC<CardItemProps> = ({ car }): ReactElement => {
       </p>
       <div className="car__coordinates">
         <p className="car__latitude">Широта: {editedCar.latitude}</p>
-        <p className="car_longitude">Долгота: {editedCar.longitude}</p>
+        <p className="car__longitude">Долгота: {editedCar.longitude}</p>
       </div>
       <button className="btn btn__remove">Удалить</button>
     </li>

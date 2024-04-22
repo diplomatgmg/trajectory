@@ -31,7 +31,6 @@ ul {
 }
 
 
-/* Стили для сортировки */
 .sort {
   display: flex;
   align-items: center;
@@ -70,8 +69,8 @@ ul {
 
 .car {
   position: relative;
-
-  width: 25%;
+  min-width: 250px;
+  width: 30%;
   padding: 20px;
 
   transition: background-color 100ms;
@@ -92,6 +91,7 @@ ul {
   }
 
   &__model {
+    flex-wrap: wrap;
     font-size: 1.5rem;
     font-weight: bold;
 
@@ -121,6 +121,10 @@ ul {
 
   &__coordinates {
     margin-top: 10px;
+  }
+
+  &__longitude {
+    margin-bottom: 0;
   }
 }
 
