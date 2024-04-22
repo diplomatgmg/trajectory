@@ -9,4 +9,9 @@ interface TCar {
   longitude: number
 }
 
-export type { TCar }
+interface Ordering {
+  field: keyof TCar
+  direction: 'asc' | 'desc'
+}
+
+export type { TCar, Ordering }

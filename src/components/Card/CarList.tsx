@@ -1,10 +1,14 @@
-import { type ReactElement, useEffect, useState } from 'react'
+import { type FC, type ReactElement, useEffect, useMemo, useState } from 'react'
 import CarItem from './CarItem'
 import { useGetVehiclesQuery } from '../../redux/api'
-import { type TCar } from '../../types/types'
+import { type Ordering, type TCar } from '../../types/types'
 import _ from 'lodash'
 
-const CarList = (): ReactElement => {
+interface CarListProps {
+  ordering: Ordering | null
+}
+
+const CarList: FC<CarListProps> = ({ ordering }): ReactElement => {
   const {
     data = [],
     isLoading
@@ -18,6 +22,13 @@ const CarList = (): ReactElement => {
       setCars([...data])
     }
   }, [data])
+
+  const sortedCars = useMemo(() => {
+    if (ordering === null) return cars
+
+    const { field, direction } = ordering
+    return _.orderBy(cars, [field], [direction])
+  }, [cars, ordering])
 
   const handleDelete = (id: TCar['id']): void => {
     const filteredCars = _.filter(cars, car => car.id !== id)
@@ -39,7 +50,7 @@ const CarList = (): ReactElement => {
 
   return (
     <ul className="cars__list">
-      {cars.map(car => <CarItem car={car} key={car.id} onDelete={handleDelete}/>)}
+      {sortedCars.map(car => <CarItem car={car} key={car.id} onDelete={handleDelete}/>)}
     </ul>
   )
 }
