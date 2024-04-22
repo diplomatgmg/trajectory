@@ -2,7 +2,6 @@ import React, { type FC, type ReactElement, useState } from 'react'
 import { type TCar } from '../../types/types'
 import Button from '../Button'
 import EditField from '../EditField'
-import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet'
 import Map from '../Map'
 
 interface CardItemProps {
