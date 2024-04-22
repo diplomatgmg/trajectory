@@ -1,0 +1,186 @@
+$blue: #007bff;
+
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+ul {
+  padding: 0;
+
+  list-style: none;
+}
+
+.cars {
+  &__title {
+    font-size: 2rem;
+
+    margin-bottom: 20px;
+
+    text-align: center;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    gap: 32px;
+  }
+
+
+  &__item {
+    width: 25%;
+    padding: 20px;
+
+    transition: background-color 100ms;
+
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: #eff6ff;
+    }
+  }
+}
+
+
+/* Стили для сортировки */
+.sort {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 2rem;
+
+  &__item {
+    margin: 0 10px;
+    padding: 4px 8px;
+
+    cursor: pointer;
+    transition: 100ms;
+
+    color: $blue;
+    border: 1px solid $blue;
+    border-radius: 4px;
+
+    &:hover {
+      color: #fff;
+      background-color: $blue;
+    }
+  }
+
+  &__item-selected {
+    color: #fff;
+    background-color: $blue;
+
+    &:hover {
+      color: $blue;
+      background-color: transparent;;
+    }
+  }
+}
+
+
+.car {
+  position: relative;
+
+  &__name {
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    margin: 0 0 8px;
+  }
+
+  &__model {
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    margin: 0;
+  }
+
+  &__model {
+    display: flex;
+    align-items: baseline;
+
+    label {
+      margin-left: 10px;
+    }
+
+    input {
+      font-size: 1rem;
+
+      width: 100px;
+      margin-left: 12px;
+      padding: 4px;
+
+      border: 1px solid $blue;
+      border-radius: 4px;
+      outline: none;
+    }
+  }
+
+  &__coordinates {
+    margin-top: 10px;
+  }
+}
+
+
+.btn {
+  margin-left: 12px;
+  padding: 4px 8px;
+
+  cursor: pointer;
+  transition: 100ms;
+
+  color: $blue;
+  border: 1px solid $blue;
+  border-radius: 4px;
+  background-color: transparent;
+
+  &__rename {
+    &:hover {
+      color: #fff;
+      background-color: $blue;;
+    }
+  }
+
+  &__apply {
+    color: #008000ff;
+    border-color: #008000ff;
+
+    &:hover {
+      color: #fff;
+      background-color: #008000ff;;
+    }
+  }
+
+  &__discard {
+    color: #808080ff;
+    border-color: #808080ff;
+
+    &:hover {
+      color: #fff;
+      background-color: #808080ff;;
+    }
+  }
+
+  &__remove {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+
+    float: right;
+
+    margin: 0;
+
+    color: #f00;
+    border-color: #f00;
+
+    &:hover {
+      color: #fff;
+      background-color: #f00;;
+    }
+  }
+}
