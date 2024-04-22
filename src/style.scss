@@ -101,22 +101,22 @@ ul {
   &__model {
     display: flex;
     align-items: baseline;
+  }
 
-    label {
-      margin-left: 10px;
-    }
+  label {
+    margin-left: 10px;
+  }
 
-    input {
-      font-size: 1rem;
+  input {
+    font-size: 1rem;
 
-      width: 100px;
-      margin-left: 12px;
-      padding: 4px;
+    width: 100px;
+    margin-left: 12px;
+    padding: 4px;
 
-      border: 1px solid $blue;
-      border-radius: 4px;
-      outline: none;
-    }
+    border: 1px solid $blue;
+    border-radius: 4px;
+    outline: none;
   }
 
   &__coordinates {
