@@ -28,21 +28,6 @@ ul {
 
     gap: 32px;
   }
-
-
-  &__item {
-    width: 25%;
-    padding: 20px;
-
-    transition: background-color 100ms;
-
-    border: 1px solid #ccc;
-    border-radius: 8px;
-
-    &:hover {
-      background-color: #eff6ff;
-    }
-  }
 }
 
 
@@ -85,6 +70,19 @@ ul {
 
 .car {
   position: relative;
+
+  width: 25%;
+  padding: 20px;
+
+  transition: background-color 100ms;
+
+  border: 1px solid #ccc;
+  border-radius: 8px;
+
+  &:hover {
+    background-color: #eff6ff;
+  }
+
 
   &__name {
     font-size: 1.5rem;
