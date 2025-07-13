@@ -4,7 +4,9 @@ version = "0.1.0"
 description = "Trajectory test task"
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "uvloop>=0.21.0",
+]
 
 [dependency-groups]
 dev = [
