@@ -24,3 +24,6 @@ lint-fix: # run linters and formatters with fix
 	uv run isort . && \
 	uv run ruff format . && \
 	uv run mypy .
+
+test-env: # create test environment
+	cp .env.example .env
