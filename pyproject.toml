@@ -37,6 +37,7 @@ lint.ignore = [
 
 [tool.mypy]
 mypy_path = "src"
+plugins = "pydantic.mypy"
 incremental = true
 warn_return_any = true
 warn_unused_configs = true
