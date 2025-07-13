@@ -40,4 +40,5 @@ FROM deps-dev AS development
 
 COPY ./src ${APP_PATH}/src
 
-CMD ["hupper", "-w", ".", "-m", "main"]
+CMD ["hupper", "-m", "src.main", "-w", "src/main.py"]
+
