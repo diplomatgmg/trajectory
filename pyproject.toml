@@ -5,6 +5,8 @@ description = "Trajectory test task"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "httpx>=0.28.1",
+    "pydantic>=2.11.7",
     "uvloop>=0.21.0",
 ]
 
@@ -21,10 +23,18 @@ unsafe-fixes = true
 line-length = 120
 lint.preview = true
 lint.select = ["ALL"]
-lint.ignore = ["D", "CPY001", "COM812"]
+lint.ignore = [
+    "CPY001", #  Missing copyright notice at top of file
+    "COM812", # Skip list trailint slash (because using isort black formatter)
+    "D", # All docstrings
+    "EM", # Raw string exception message
+    "I", # All imports (because using isort)
+    "TRY003", # Avoid specifying long messages outside the exception class
+]
 
 
 [tool.mypy]
+mypy_path = "src"
 incremental = true
 warn_return_any = true
 warn_unused_configs = true
