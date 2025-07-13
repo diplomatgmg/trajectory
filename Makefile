@@ -27,3 +27,5 @@ lint-fix: # run linters and formatters with fix
 
 test-env: # create test environment
 	cp .env.example .env
+
+test-dev: test-env up # run project
