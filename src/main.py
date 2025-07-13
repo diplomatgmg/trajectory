@@ -6,9 +6,11 @@ import uvloop
 from clients.schedule import ScheduleClient
 from logger.factory import setup_logger
 
+
 setup_logger()
 
 logger = logging.getLogger(__name__)
+
 
 async def main() -> None:
     async with AsyncClient() as client:
