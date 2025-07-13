@@ -10,7 +10,7 @@ __all__ = ["ScheduleClient"]
 class ScheduleClient(BaseClient):
     url = URL("https://ofc-test-01.tspb.su/test-task/")
 
-    async def get_schedule(self) -> ScheduleResponse:
+    async def get_schedules(self) -> ScheduleResponse:
         response = await self.client.get(self.url)
         response.raise_for_status()
 

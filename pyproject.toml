@@ -12,6 +12,7 @@ dependencies = [
 
 [dependency-groups]
 dev = [
+    "hupper>=1.12.1",
     "isort>=6.0.1",
     "mypy>=1.16.1",
     "ruff>=0.12.3",

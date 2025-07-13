@@ -1,0 +1,9 @@
+name: ${ENV_PROJECT_NAME}
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/app/src
