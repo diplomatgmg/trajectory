@@ -1,7 +1,7 @@
-from datetime import date, datetime, time
+from datetime import UTC, date, datetime, time, timedelta
 import logging
 
-from schemas.schedule import Day, FreeTimeSlot, Schedule, TimeSlot
+from schemas.schedule import AvailableTimeSlot, Day, FreeTimeSlot, Schedule, TimeSlot
 from services.schedule.exceptions import InvalidTimeFormatError, WorkdayNotFoundError
 
 
@@ -105,3 +105,34 @@ class ScheduleService:
 
         # Проверяем, что слот не пересекается с занятыми
         return all(not (start_time < slot.end and end_time > slot.start) for slot in busy_time_slots)
+
+    def find_first_available_slot(self, duration_minutes: int) -> list[AvailableTimeSlot]:
+        """Находит первое свободное окно для заявки указанной продолжительности."""
+        logger.debug("Finding first available slot for %s minutes", duration_minutes)
+
+        # Дата нужна для поддержки вычислений
+        dummy_date = datetime.min.replace(tzinfo=UTC).date()
+
+        for day in self.schedule.days:
+            if day.date < datetime.now(tz=UTC).date():  # Скипаем прошедшие дни
+                logger.debug("Skipping previous date %s", day.date)
+                # FIXME В API нет актуальных дат, поэтому имитируем скип
+                # continue # noqa: ERA001
+
+            free_slots = self.get_free_timeslots(day.date.isoformat())
+            available_slots: list[AvailableTimeSlot] = []
+
+            for slot in free_slots:
+                free_slot_start_dt = datetime.combine(dummy_date, slot.start)
+                free_slot_end_dt = datetime.combine(dummy_date, slot.end)
+
+                if free_slot_end_dt - free_slot_start_dt >= timedelta(minutes=duration_minutes):
+                    available_slots.append(AvailableTimeSlot(date=day.date, start=slot.start, end=slot.end))
+
+            # Зависит от задачи и потребностей, но предположим, что необходимо вернуть окна в ближайшее дате
+            if available_slots:
+                logger.debug("Found %s available slots on %s: %s", len(available_slots), day.date, available_slots)
+                return available_slots
+
+        logger.debug("No available slots found for %s minutes", duration_minutes)
+        return []

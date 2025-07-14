@@ -20,12 +20,7 @@ async def main() -> None:
 
     schedule_service = ScheduleService(schedules)
 
-    date = "2025-02-16"
-    free = schedule_service.get_free_timeslots(date)
-    logger.error(free)
-
-    p = schedule_service.is_timeslot_available(date, "08:00", "09:30")
-    logger.error(p)
+    schedule_service.find_first_available_slot(60)
 
 
 if __name__ == "__main__":

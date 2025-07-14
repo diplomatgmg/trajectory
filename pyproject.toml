@@ -32,9 +32,11 @@ lint.ignore = [
     "DOC", # All docstrings
     "E402", # Module level import not at top of file (because using isort black formatter)
     "EM", # Raw string exception message
+    "FIX", # All FIXMEs
     "I", # All imports (because using isort)
     "RUF003", # Skip validate cirillic letters means latins letters in docstrings
     "TRY003", # Avoid specifying long messages outside the exception class
+    "TD", # All TODOs
 ]
 
 
