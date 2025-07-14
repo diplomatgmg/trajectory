@@ -7,6 +7,7 @@ from schemas.common import TimeRangeMixin
 
 __all__ = [
     "Day",
+    "FreeTimeSlot",
     "Schedule",
     "TimeSlot",
 ]
@@ -25,3 +26,7 @@ class TimeSlot(TimeRangeMixin, BaseModel):
 class Schedule(BaseModel):
     days: list[Day]
     timeslots: list[TimeSlot]
+
+
+class FreeTimeSlot(TimeRangeMixin, BaseModel):
+    """Модель для представления свободного временного промежутка."""

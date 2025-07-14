@@ -21,8 +21,9 @@ async def main() -> None:
 
     schedule_service = ScheduleService(schedules)
 
-    date = "2025-02-18"
-    schedule_service.get_busy_time_slots(date)
+    date = "2025-02-15"
+    p = schedule_service.get_free_timeslots(date)
+    logger.error(p)
 
 
 if __name__ == "__main__":
