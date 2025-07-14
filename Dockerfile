@@ -44,7 +44,7 @@ FROM deps-test AS testing
 COPY ./tests ${APP_PATH}/tests
 COPY ./src ${APP_PATH}/src
 
-CMD ["uv", "run", "pytest", "tests"]
+CMD ["uv", "run", "pytest", "tests", "--cov=src", "--cov-report=html"]
 
 # ================================= #
 #           DEVELOPMENT             #

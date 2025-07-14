@@ -1,3 +1,5 @@
+-include .env
+
 help:
 	@awk 'BEGIN {FS = ":.*#"; printf "\nUsage:\n  make \033[36m<target>\033[0m\n"} /^[a-zA-Z_-]+:.*?#/ { printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2 } /^#@/ { printf "\n\033[1m%s\033[0m\n", substr($$0, 5) } ' $(MAKEFILE_LIST)
 
@@ -30,6 +32,9 @@ test-env: # create test environment
 
 test-dev: test-env venv up # run project
 
+
 test: # run tests
 	@echo "Building image..."
 	@docker compose run --quiet --build --rm tester
+	@docker image rm $$(docker images -q $(ENV_PROJECT_NAME)-tester 2>/dev/null) 2>/dev/null || true
+
