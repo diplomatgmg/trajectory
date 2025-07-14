@@ -20,6 +20,9 @@ async def main() -> None:
 
     schedule_service = ScheduleService(schedules)
 
+    # Тут может быть поддержка командной строки, или это api сервис.
+    # Оставил просто пример, чтобы не было лишнего кода
+
     busy_date = "2025-02-18"
     logger.info("Finding busy slots for %s", busy_date)
 

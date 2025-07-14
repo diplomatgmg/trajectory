@@ -29,3 +29,6 @@ test-env: # create test environment
 	cp .env.example .env
 
 test-dev: test-env up # run project
+
+test: # run tests
+	docker compose run --build --rm tester

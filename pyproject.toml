@@ -18,6 +18,9 @@ dev = [
     "mypy>=1.16.1",
     "ruff>=0.12.3",
 ]
+tests = [
+    "pytest-asyncio>=1.0.0",
+]
 
 [tool.ruff]
 fix = true
@@ -39,6 +42,12 @@ lint.ignore = [
     "TD", # All TODOs
 ]
 
+[tool.ruff.lint.extend-per-file-ignores]
+"tests/*" = [
+    "S101", # Use of `assert` detected
+    "PLR2004", # Magic value used in comparison
+]
+
 
 [tool.mypy]
 mypy_path = "src"
@@ -58,6 +67,7 @@ warn_redundant_casts = true
 warn_unused_ignores = true
 follow_imports_for_stubs = true
 explicit_package_bases = true
+exclude = "tests"
 
 [tool.isort]
 profile = "black"

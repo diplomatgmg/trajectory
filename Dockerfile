@@ -24,6 +24,9 @@ FROM builder AS deps-base
 
 COPY pyproject.toml uv.lock ./
 
+FROM deps-base AS deps-test
+
+RUN uv sync --frozen --group tests
 
 FROM deps-base AS deps-dev
 
@@ -32,6 +35,16 @@ RUN uv sync --frozen --dev
 FROM deps-base AS deps-prod
 # This is test task.
 
+
+# ================================= #
+#              TESTING              #
+# ================================= #
+FROM deps-test AS testing
+
+COPY ./tests ${APP_PATH}/tests
+COPY ./src ${APP_PATH}/src
+
+CMD ["uv", "run", "pytest", "tests"]
 
 # ================================= #
 #           DEVELOPMENT             #

@@ -9,3 +9,16 @@ services:
       - .env
     volumes:
       - ./src:/app/src
+
+  tester:
+    profiles:
+      - testing
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: testing
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/src
+      - ./tests:/app/tests
