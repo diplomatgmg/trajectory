@@ -20,7 +20,31 @@ async def main() -> None:
 
     schedule_service = ScheduleService(schedules)
 
-    schedule_service.find_first_available_slot(60)
+    busy_date = "2025-02-18"
+    logger.info("Finding busy slots for %s", busy_date)
+
+    # Занятые Окна
+    busy_slots = schedule_service.get_busy_time_slots(busy_date)
+    for busy_slot in busy_slots:
+        logger.info("Busy slot: start=%s, end=%s", busy_slot.start, busy_slot.end)
+
+    free_date = "2025-02-18"
+    logger.info("Finding free slots for %s", free_date)
+
+    # Свободные Окна
+    free_slots = schedule_service.get_free_timeslots(free_date)
+    for free_slot in free_slots:
+        logger.info("Free slot: start=%s, end=%s", free_slot.start, free_slot.end)
+
+    # Ближайшее окно
+    duration = 30
+    logger.info("Finding available slots for %s minutes", duration)
+
+    available_slots = schedule_service.find_first_available_slot(duration)
+    for available_slot in available_slots:
+        logger.info(
+            "Available slot: date=%s, start=%s, end=%s", available_slot.date, available_slot.start, available_slot.end
+        )
 
 
 if __name__ == "__main__":
