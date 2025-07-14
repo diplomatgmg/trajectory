@@ -1,8 +1,8 @@
-from datetime import date, datetime
+from datetime import date, datetime, time
 import logging
 
 from schemas.schedule import Day, FreeTimeSlot, Schedule, TimeSlot
-from services.schedule.exceptions import ScheduleServiceError, WorkdayNotFoundError
+from services.schedule.exceptions import InvalidTimeFormatError, WorkdayNotFoundError
 
 
 __all__ = ["ScheduleService"]
@@ -10,28 +10,41 @@ __all__ = ["ScheduleService"]
 logger = logging.getLogger(__name__)
 
 
-def _parse_iso_date_string(date: str) -> datetime:
+def _parse_iso_date_string(date_str: str) -> datetime:
     try:
-        return datetime.fromisoformat(date)
+        return datetime.fromisoformat(date_str)
     except ValueError as e:
-        raise ScheduleServiceError(
-            f"Invalid date format: '{date}'. Expected ISO format 'YYYY-MM-DD' or 'YYYY-MM-DDTHH:MM:SS'."
+        raise InvalidTimeFormatError(
+            f"Invalid date format: '{date_str}'. Expected ISO format 'YYYY-MM-DD' or 'YYYY-MM-DDTHH:MM:SS'."
         ) from e
+
+
+def _parse_time_string(time_str: str) -> time:
+    try:
+        return datetime.strptime(time_str, "%H:%M").time()  # noqa: DTZ007 tz роли не играет
+    except ValueError as e:
+        raise InvalidTimeFormatError(f"Invalid time format: '{time_str}'. Expected format 'HH:MM' ro.") from e
 
 
 class ScheduleService:
     def __init__(self, schedule: Schedule) -> None:
         self.schedule = schedule
+        self._target_workday_cache: dict[date, Day] = {}
 
     def _get_target_workday(self, target_date: date) -> Day:
         """Возвращает рабочий день для указанной даты."""
         logger.debug("Getting workday for %s", target_date)
 
+        if target_workday := self._target_workday_cache.get(target_date):
+            return target_workday
+
         target_workday = next((day for day in self.schedule.days if day.date == target_date), None)
         if not target_workday:
             raise WorkdayNotFoundError(f"Workday {target_date} not found in schedule")
 
-        logger.debug("Found workday %s for date %s", target_workday.id, target_date)
+        self._target_workday_cache[target_date] = target_workday
+
+        logger.debug("Found workday for date %s", target_date)
         return target_workday
 
     def get_busy_time_slots(self, date_str: str) -> list[TimeSlot]:
@@ -70,3 +83,25 @@ class ScheduleService:
             free_periods.append(FreeTimeSlot(start=last_busy_end_time, end=target_workday.end))
 
         return free_periods
+
+    def is_timeslot_available(self, date_str: str, start_time_str: str, end_time_str: str) -> bool:
+        """Проверяет, доступен ли заданный промежуток времени."""
+        logger.debug("Checking availability for %s %s-%s", date_str, start_time_str, end_time_str)
+        start_time = _parse_time_string(start_time_str)
+        end_time = _parse_time_string(end_time_str)
+
+        if start_time >= end_time:
+            raise InvalidTimeFormatError("Start time must be before end time.")
+
+        target_date = _parse_iso_date_string(date_str).date()
+        target_workday = self._get_target_workday(target_date)
+
+        # Проверяем, что время начала и окончания входят в рабочий день
+        if not (target_workday.start <= start_time <= end_time <= target_workday.end):
+            logger.debug("Timeslot %s-%s is not within the workday for date %s", start_time_str, end_time_str, date_str)
+            return False
+
+        busy_time_slots = self.get_busy_time_slots(date_str)
+
+        # Проверяем, что слот не пересекается с занятыми
+        return all(not (start_time < slot.end and end_time > slot.start) for slot in busy_time_slots)

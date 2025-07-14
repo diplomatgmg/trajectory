@@ -17,12 +17,14 @@ async def main() -> None:
     async with AsyncClient() as client:
         schedule_client = ScheduleClient(client)
         schedules = await schedule_client.get_schedules()
-    logger.info(schedules)
 
     schedule_service = ScheduleService(schedules)
 
-    date = "2025-02-15"
-    p = schedule_service.get_free_timeslots(date)
+    date = "2025-02-16"
+    free = schedule_service.get_free_timeslots(date)
+    logger.error(free)
+
+    p = schedule_service.is_timeslot_available(date, "08:00", "09:30")
     logger.error(p)
 
 

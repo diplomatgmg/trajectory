@@ -33,6 +33,7 @@ lint.ignore = [
     "E402", # Module level import not at top of file (because using isort black formatter)
     "EM", # Raw string exception message
     "I", # All imports (because using isort)
+    "RUF003", # Skip validate cirillic letters means latins letters in docstrings
     "TRY003", # Avoid specifying long messages outside the exception class
 ]
 
