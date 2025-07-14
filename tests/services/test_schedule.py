@@ -54,11 +54,18 @@ def test_get_busy_slots_non_existent_date(schedule_service: ScheduleService) -> 
         schedule_service.get_busy_time_slots("2025-12-31")
 
 
-@pytest.mark.parametrize("invalid_date", ["2025/02/15", "15-02-2025", "not-a-date"])
+@pytest.mark.parametrize("invalid_date", ["2025/02/15", "15/02/2025", "not-a-date"])
 def test_get_busy_slots_invalid_date_format(schedule_service: ScheduleService, invalid_date: str) -> None:
     """Тест: попытка получить слоты с неверным форматом даты."""
     with pytest.raises(InvalidTimeFormatError):
         schedule_service.get_busy_time_slots(invalid_date)
+
+
+@pytest.mark.parametrize("invalid_time", ["25:70", "15-02-2025", "not-a-time"])
+def test_is_timeslot_available_time_format(schedule_service: ScheduleService, invalid_time: str) -> None:
+    """Тест: попытка получить слоты с неверным форматом даты."""
+    with pytest.raises(InvalidTimeFormatError):
+        schedule_service.is_timeslot_available("15-02-2025", invalid_time, "10:00")
 
 
 # ==========================

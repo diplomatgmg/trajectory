@@ -21,6 +21,7 @@ dev = [
 tests = [
     "pytest-asyncio>=1.0.0",
     "pytest-cov>=6.2.1",
+    "respx>=0.22.0",
 ]
 
 [tool.ruff]
@@ -81,3 +82,6 @@ float_to_top = true
 
 [tool.coverage.html]
 directory = "tests/htmlcov"
+
+[tool.coverage.run]
+omit = ["*/__init__.py"]
