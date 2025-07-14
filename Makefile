@@ -28,7 +28,8 @@ lint-fix: # run linters and formatters with fix
 test-env: # create test environment
 	cp .env.example .env
 
-test-dev: test-env up # run project
+test-dev: test-env venv up # run project
 
 test: # run tests
-	docker compose run --build --rm tester
+	@echo "Building image..."
+	@docker compose run --quiet --build --rm tester
