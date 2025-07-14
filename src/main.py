@@ -5,6 +5,7 @@ import uvloop
 
 from clients.schedule import ScheduleClient
 from logger.factory import setup_logger
+from services.schedule import ScheduleService
 
 
 setup_logger()
@@ -17,6 +18,11 @@ async def main() -> None:
         schedule_client = ScheduleClient(client)
         schedules = await schedule_client.get_schedules()
     logger.info(schedules)
+
+    schedule_service = ScheduleService(schedules)
+
+    date = "2025-02-18"
+    schedule_service.get_busy_time_slots(date)
 
 
 if __name__ == "__main__":

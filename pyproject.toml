@@ -29,6 +29,8 @@ lint.ignore = [
     "CPY001", #  Missing copyright notice at top of file
     "COM812", # Skip list trailint slash (because using isort black formatter)
     "D", # All docstrings
+    "DOC", # All docstrings
+    "E402", # Module level import not at top of file (because using isort black formatter)
     "EM", # Raw string exception message
     "I", # All imports (because using isort)
     "TRY003", # Avoid specifying long messages outside the exception class
