@@ -11,7 +11,7 @@ stop: ## compose stop
 	@docker compose $(DOCKER_PROFILES) stop
 
 venv: # create/update venv
-	@uv sync --frozen --all-packages
+	@uv sync --frozen --all-packages --all-groups
 
 lint: # run linters and formatters
 	@uv run ruff check . --watch && \
