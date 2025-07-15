@@ -25,8 +25,6 @@ tests = [
 ]
 
 [tool.ruff]
-fix = true
-unsafe-fixes = true
 line-length = 120
 lint.preview = true
 lint.select = ["ALL"]
