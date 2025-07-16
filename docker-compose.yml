@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      target: ${ENV_MODE}
     env_file:
       - .env
     volumes:
